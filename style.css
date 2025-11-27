@@ -1,40 +1,36 @@
 :root {
-    /* Define primary colors as variables for easy maintenance */
-    --color-background: #0e0e0e;      /* Deep Black */
-    --color-text: #d9d9d9;          /* Light Gray */
-    --color-accent: #c9a34a;        /* Gold/Brown Accent */
-    --color-darker: #000;           /* Pure Black */
-    --color-card-bg: #1a1a1a;       /* Slightly lighter background for depth */
-    --color-hover-text: white;
-    --timing-quick: 0.25s;          /* Standard quick transition time */
+    /* Define FUN and VIBRANT colors */
+    --color-background: #f0f4f8;      /* Soft Light Gray/Blue */
+    --color-text: #2b2c34;          /* Deep Contrast Text */
+    --color-accent-primary: #6246ea; /* Vibrant Purple */
+    --color-accent-pop: #ff8906;   /* Bright Orange/Pop */
+    --color-card-bg: #ffffff;      /* Clean White */
+    --timing-quick: 0.25s;
+    --timing-bounce: 0.5s;
 }
 
-/* * 1. GLOBAL STYLES & TRANSITIONS 
- * Setting a global transition for smooth movement on all elements.
- */
+/* * 1. GLOBAL STYLES & TRANSITIONS */
 * {
-    /* Apply a smooth transition to properties that change on hover/state */
-    transition: all var(--timing-quick) ease-in-out;
-    box-sizing: border-box; /* Ensure padding/border don't affect width */
+    /* A slightly slower transition for a more noticeable, playful movement */
+    transition: all var(--timing-quick) cubic-bezier(0.25, 0.8, 0.25, 1); 
+    box-sizing: border-box;
 }
 
 body {
-    font-family: "Inter", "Tahoma", sans-serif; /* Modern font choice */
+    font-family: "Inter", "Tahoma", sans-serif;
     margin: 0;
     background: var(--color-background);
     color: var(--color-text);
-    scroll-behavior: smooth; /* Modern smooth scrolling */
+    scroll-behavior: smooth;
 }
 
-/* * 2. HEADER & NAVIGATION 
- * Adding depth with sticky position and shadow.
- */
+/* * 2. HEADER & NAVIGATION (Lighter, Cleaner Look) */
 header {
-    background: var(--color-darker);
+    background: var(--color-card-bg); /* Clean white header */
     padding: 20px;
-    /* Use shadow for depth instead of a simple border */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); 
-    position: sticky; /* Sticky header for professional feel */
+    /* Soft shadow for a floating effect */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+    position: sticky;
     top: 0;
     z-index: 100;
 }
@@ -48,25 +44,22 @@ nav {
 }
 
 nav a {
-    color: var(--color-accent);
+    color: var(--color-accent-primary);
     text-decoration: none;
-    font-weight: 600; 
+    font-weight: 700; /* Bolder for pop */
     margin-left: 20px;
-    /* Transition is set globally, but we can override for specific effects */
 }
 
 nav a:hover {
-    color: var(--color-hover-text);
-    /* Micro-interaction: Subtle lift and size change */
-    transform: scale(1.05) translateY(-2px); 
+    color: var(--color-accent-pop); /* Pop color on hover */
+    /* FUN MICRO-INTERACTION: Bouncy lift */
+    transform: translateY(-5px) scale(1.05); 
 }
 
-/* * 3. HERO SECTION 
- * Adding float animation to the image and staggered entrance for text.
- */
+/* * 3. HERO SECTION (Bouncier Entrance) */
 .hero {
     max-width: 1200px;
-    margin: 60px auto;
+    margin: 80px auto; /* More margin to breathe */
     display: flex;
     align-items: center;
     gap: 40px;
@@ -77,108 +70,114 @@ nav a:hover {
     width: 230px;
     height: 230px;
     border-radius: 50%;
-    /* Enhanced shadow for a subtle glow effect */
-    box-shadow: 0 0 0 4px var(--color-accent), 0 0 20px rgba(201, 163, 74, 0.4); 
+    /* Soft, colorful shadow ring */
+    box-shadow: 0 0 0 8px var(--color-accent-primary), 0 0 30px rgba(98, 70, 234, 0.6); 
     object-fit: cover;
-    background: #222;
+    background: var(--color-background);
 
-    /* ANIMATION: Subtle 3D float */
-    animation: float 4s ease-in-out infinite; 
-    transition: all 0.4s ease-out; /* Dedicated transition for complex hover */
+    /* FUN ANIMATION: Bounce and Glow */
+    animation: bounceAndGlow 4s ease-in-out infinite; 
+    transition: all 0.4s ease-out;
 }
 
-/* Hover effect on image */
+/* Hover effect on image (more pronounced spin) */
 .hero img:hover {
-    transform: scale(1.05) rotateZ(-1deg);
-    /* Stronger shadow on hover */
-    box-shadow: 0 0 0 6px var(--color-accent), 0 0 30px rgba(201, 163, 74, 0.6); 
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 0 0 10px var(--color-accent-pop), 0 0 40px rgba(255, 137, 6, 0.8); 
 }
 
 .hero-text h1 {
-    font-size: 38px;
-    color: var(--color-accent);
-    /* Apply text entrance animation */
+    font-size: 44px;
+    color: var(--color-accent-primary);
+    /* Entrance Animation */
     opacity: 0;
-    transform: translateX(-20px);
-    animation: slideIn 0.8s forwards;
+    transform: translateY(20px); /* Slide up instead of slide from side */
+    animation: slideUp 0.8s forwards;
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Springy bounce */
 }
 
 .hero-text p {
-    font-size: 17px;
+    font-size: 18px;
     line-height: 1.7;
-    /* Apply text entrance animation with a delay */
+    /* Staggered Entrance */
     opacity: 0;
-    transform: translateX(-20px);
-    animation: slideIn 0.8s forwards;
-    animation-delay: 0.3s; 
+    transform: translateY(20px);
+    animation: slideUp 0.8s forwards;
+    animation-delay: 0.3s;
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Springy bounce */
 }
 
-/* * 4. CONTENT CARD 
- * Adding interactive lift and shadow effects.
- */
+/* * 4. CONTENT CARD (Neumorphism-inspired Lift) */
 .card {
     max-width: 1000px;
-    /* Use variable for slightly lighter card background */
     background: var(--color-card-bg); 
     padding: 30px;
     margin: 40px auto;
-    border-radius: 12px; 
-    /* Use box-shadow for depth instead of border */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); 
+    border-radius: 16px; 
+    /* Soft, inset shadow for a Neumorphic feel */
+    box-shadow: 5px 5px 15px #d3e0f0, -5px -5px 15px #ffffff; 
     
-    /* Set transition for smooth hover effects */
     transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease-out;
 }
 
-/* INTERACTION: Modern card lift on hover */
+/* FUN INTERACTION: Card pops out more aggressively */
 .card:hover {
-    transform: translateY(-5px) scale(1.005); 
-    /* Enhanced shadow for the "lifted" look and accent border */
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--color-accent);
+    transform: translateY(-8px) scale(1.01); 
+    /* Deeper, more noticeable shadow on lift */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15), 0 0 0 3px var(--color-accent-primary);
 }
 
 .card h2 {
-    color: var(--color-accent);
-    /* Subtle text glow */
-    text-shadow: 0 0 5px rgba(201, 163, 74, 0.4); 
+    color: var(--color-accent-primary);
+    /* Pop color shadow */
+    text-shadow: 1px 1px 5px rgba(255, 137, 6, 0.3); 
 }
 
-.card p, li {
-    line-height: 1.8;
-}
-
-/* * 5. FOOTER 
- * Subtle hover effect.
- */
+/* * 5. FOOTER (Simple, Clean) */
 footer {
     text-align: center;
     padding: 20px;
     margin-top: 60px;
-    border-top: 1px solid var(--color-accent);
+    border-top: 1px solid var(--color-accent-primary);
     font-size: 14px;
-    opacity: 0.8; /* Subtle opacity change */
+    opacity: 0.7; 
 }
 
 footer:hover {
     opacity: 1;
-    color: var(--color-accent);
+    color: var(--color-accent-pop);
 }
 
-/* * 6. KEYFRAME ANIMATIONS 
- * Define the actual animation movements.
- */
-
-/* Keyframe for image float */
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-8px); }
-    100% { transform: translateY(0px); }
+/* * 6. SOCIAL LINKS (Updated for new colors) */
+.social-link:hover {
+    color: var(--color-accent-pop); /* Change text color */
+    transform: translateX(-5px) scale(1.1); /* More exaggerated movement */
 }
 
-/* Keyframe for text entrance (from left to center) */
-@keyframes slideIn {
+.social-link::after {
+    /* Updated accent color for the slide-under animation */
+    background-color: var(--color-accent-pop); 
+}
+
+
+/* * 7. KEYFRAME ANIMATIONS (Updated for "Funny/Bouncy" feel) */
+
+/* Keyframe for image bounce and glow */
+@keyframes bounceAndGlow {
+    0%, 100% { 
+        transform: translateY(0px) scale(1); 
+        box-shadow: 0 0 0 8px var(--color-accent-primary); 
+    }
+    50% { 
+        transform: translateY(-12px) scale(1.02); /* More lift */
+        box-shadow: 0 0 0 10px var(--color-accent-pop); /* Color change mid-bounce */
+    }
+}
+
+/* Keyframe for text entrance with a springy effect */
+@keyframes slideUp {
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(0);
     }
 }
