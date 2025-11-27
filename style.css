@@ -1,14 +1,42 @@
-body {
-    font-family: "Tahoma", sans-serif;
-    margin: 0;
-    background: #0e0e0e;
-    color: #d9d9d9;
+:root {
+    /* Define primary colors as variables for easy maintenance */
+    --color-background: #0e0e0e;      /* Deep Black */
+    --color-text: #d9d9d9;          /* Light Gray */
+    --color-accent: #c9a34a;        /* Gold/Brown Accent */
+    --color-darker: #000;           /* Pure Black */
+    --color-card-bg: #1a1a1a;       /* Slightly lighter background for depth */
+    --color-hover-text: white;
+    --timing-quick: 0.25s;          /* Standard quick transition time */
 }
 
+/* * 1. GLOBAL STYLES & TRANSITIONS 
+ * Setting a global transition for smooth movement on all elements.
+ */
+* {
+    /* Apply a smooth transition to properties that change on hover/state */
+    transition: all var(--timing-quick) ease-in-out;
+    box-sizing: border-box; /* Ensure padding/border don't affect width */
+}
+
+body {
+    font-family: "Inter", "Tahoma", sans-serif; /* Modern font choice */
+    margin: 0;
+    background: var(--color-background);
+    color: var(--color-text);
+    scroll-behavior: smooth; /* Modern smooth scrolling */
+}
+
+/* * 2. HEADER & NAVIGATION 
+ * Adding depth with sticky position and shadow.
+ */
 header {
-    background: #000;
+    background: var(--color-darker);
     padding: 20px;
-    border-bottom: 2px solid #c9a34a;
+    /* Use shadow for depth instead of a simple border */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); 
+    position: sticky; /* Sticky header for professional feel */
+    top: 0;
+    z-index: 100;
 }
 
 nav {
@@ -20,25 +48,22 @@ nav {
 }
 
 nav a {
-    color: #c9a34a;
+    color: var(--color-accent);
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600; 
     margin-left: 20px;
+    /* Transition is set globally, but we can override for specific effects */
 }
 
-.nav-links a:hover {
-    color: white;
+nav a:hover {
+    color: var(--color-hover-text);
+    /* Micro-interaction: Subtle lift and size change */
+    transform: scale(1.05) translateY(-2px); 
 }
 
-footer {
-    text-align: center;
-    padding: 20px;
-    margin-top: 60px;
-    border-top: 1px solid #c9a34a;
-    font-size: 14px;
-}
-
-/* HERO SECTION */
+/* * 3. HERO SECTION 
+ * Adding float animation to the image and staggered entrance for text.
+ */
 .hero {
     max-width: 1200px;
     margin: 60px auto;
@@ -52,35 +77,108 @@ footer {
     width: 230px;
     height: 230px;
     border-radius: 50%;
-    border: 4px solid #c9a34a;
+    /* Enhanced shadow for a subtle glow effect */
+    box-shadow: 0 0 0 4px var(--color-accent), 0 0 20px rgba(201, 163, 74, 0.4); 
     object-fit: cover;
     background: #222;
+
+    /* ANIMATION: Subtle 3D float */
+    animation: float 4s ease-in-out infinite; 
+    transition: all 0.4s ease-out; /* Dedicated transition for complex hover */
+}
+
+/* Hover effect on image */
+.hero img:hover {
+    transform: scale(1.05) rotateZ(-1deg);
+    /* Stronger shadow on hover */
+    box-shadow: 0 0 0 6px var(--color-accent), 0 0 30px rgba(201, 163, 74, 0.6); 
 }
 
 .hero-text h1 {
     font-size: 38px;
-    color: #c9a34a;
+    color: var(--color-accent);
+    /* Apply text entrance animation */
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideIn 0.8s forwards;
 }
 
 .hero-text p {
     font-size: 17px;
     line-height: 1.7;
+    /* Apply text entrance animation with a delay */
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideIn 0.8s forwards;
+    animation-delay: 0.3s; 
 }
 
-/* CONTENT CARD */
+/* * 4. CONTENT CARD 
+ * Adding interactive lift and shadow effects.
+ */
 .card {
     max-width: 1000px;
-    background: #111;
+    /* Use variable for slightly lighter card background */
+    background: var(--color-card-bg); 
     padding: 30px;
     margin: 40px auto;
-    border-radius: 10px;
-    border: 1px solid #c9a34a;
+    border-radius: 12px; 
+    /* Use box-shadow for depth instead of border */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); 
+    
+    /* Set transition for smooth hover effects */
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease-out;
+}
+
+/* INTERACTION: Modern card lift on hover */
+.card:hover {
+    transform: translateY(-5px) scale(1.005); 
+    /* Enhanced shadow for the "lifted" look and accent border */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--color-accent);
 }
 
 .card h2 {
-    color: #c9a34a;
+    color: var(--color-accent);
+    /* Subtle text glow */
+    text-shadow: 0 0 5px rgba(201, 163, 74, 0.4); 
 }
 
 .card p, li {
     line-height: 1.8;
+}
+
+/* * 5. FOOTER 
+ * Subtle hover effect.
+ */
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 60px;
+    border-top: 1px solid var(--color-accent);
+    font-size: 14px;
+    opacity: 0.8; /* Subtle opacity change */
+}
+
+footer:hover {
+    opacity: 1;
+    color: var(--color-accent);
+}
+
+/* * 6. KEYFRAME ANIMATIONS 
+ * Define the actual animation movements.
+ */
+
+/* Keyframe for image float */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Keyframe for text entrance (from left to center) */
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
