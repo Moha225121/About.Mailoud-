@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>المهندس محمد ميلود منصور</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <nav>
+        <div class="logo"><a href="index.html">Mohamed.M</a></div>
+        <div class="nav-links">
+            <a href="services.html">الخدمات</a>
+            <a href="cv.html">السيرة الذاتية</a>
+            <a href="contact.html">تواصل</a>
+        </div>
+    </nav>
+</header>
+
+<div class="hero">
+    <img src="image.png" alt="profile">
+    <div class="hero-text">
+        <h1 id="site_title">المهندس محمد ميلود منصور</h1>
+        <p id="site_description"></p>
+        <p><strong>الهاتف:</strong> <span id="site_phone"></span></p>
+    </div>
+</div>
+
+<footer>
+    © جميع الحقوق محفوظة – المهندس محمد ميلود 2025
+</footer>
+
+<script>
+    const apiUrl = "https://api.npoint.io/abd1273a3492088bcecc";
+
+    fetch(apiUrl)
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById("site_title").innerText = data.site_title;
+            document.getElementById("site_description").innerText = data.site_description;
+            document.getElementById("site_phone").innerText = data.site_phone;
+        });
+</script>
+
+</body>
+</html>

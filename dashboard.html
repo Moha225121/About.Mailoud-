@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>لوحة التحكم</title>
+
+    <style>
+        body {
+            font-family: Tahoma;
+            background: #f0f2f5;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            margin-top: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 14px rgba(0,0,0,0.1);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 12px 25px;
+            margin-top: 20px;
+            background: #0b3d91;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>تعديل بيانات الموقع</h2>
+
+    <label>عنوان الموقع:</label>
+    <input type="text" id="titleInput">
+
+    <label>النبذة التعريفية:</label>
+    <textarea id="descInput" rows="6"></textarea>
+
+    <label>رقم الهاتف:</label>
+    <input type="text" id="phoneInput">
+
+    <button onclick="saveContent()">حفظ التعديلات</button>
+</div>
+
+<script>
+    const apiUrl = "https://api.npoint.io/abd1273a3492088bcecc";
+
+    fetch(apiUrl)
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("titleInput").value = data.site_title;
+        document.getElementById("descInput").value = data.site_description;
+        document.getElementById("phoneInput").value = data.site_phone;
+    });
+
+    function saveContent() {
+        const updated = {
+            site_title: document.getElementById("titleInput").value,
+            site_description: document.getElementById("descInput").value,
+            site_phone: document.getElementById("phoneInput").value
+        };
+
+        fetch(apiUrl, {
+            method: "PUT",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(updated)
+        })
+        .then(res => {
+            if (res.ok) {
+                alert("تم الحفظ بنجاح");
+                window.location.href = "index.html";
+            } else {
+                alert("خطأ أثناء الحفظ");
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
